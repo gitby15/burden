@@ -1,0 +1,192 @@
+{
+	"Session/:token":{
+		"GET":{
+			"function":"Get Session Info",
+			"parameters":{},
+			"return":{
+					"session":{
+						"type":"object",
+						"comment":"return the session to client"
+					}
+				},
+			"comment":"get session infomation"
+		},
+		"POST":{
+			"function":"Login",
+			"parameters":{
+					"username":{
+						"type":"string",
+						"comment":"learn OAuth, how to login?"
+					},
+					"password":{
+						"type":"string",
+						"comment":"learn OAuth, how to login?"
+					}
+				},
+			"return":{"session":"object"},
+			"comment":"create session infomation, while using POST,
+			 you don't need /:token, just access /session"
+
+			},
+		"PUT":{
+			"function":"Update Session",
+			"parameters":{},
+			"return":{"session":"object"},
+			"comment":"update session infomation, 
+			I don't know hot to design this interface now"
+			},
+		"DELETE":{
+			"function":"logout",
+			"parameters":{},
+			"return":{},
+			"comment":"distory session and logout"
+			}
+	},
+
+	"User/:userid":{
+		"GET":{
+			"function":"Get User Infomation",
+			"parameters":{},
+			"return":{
+					"user":{
+						"type":"object",
+						"comment":"no password"
+					}
+				},
+			"comment":"get user infomation"
+		},
+		"POST":{
+			"function":"Sign Up",
+			"parameters":{
+				"username":"string",
+				"password":"string",
+				"email":"string|email",
+
+				},
+			"return":{"user":"object"},
+			"comment":"create a new user"
+
+			},
+		"PUT":{
+			"function":"Update User",
+			"parameters":{
+					"field":{
+						"type":"object",
+						"comment":"an object include what field you want to update"
+					}
+				},
+			"return":{"user":"object"},
+			"comment":"update the whole user"
+			},
+		"PATCH":{
+			"function":"Update User",
+			"parameters":{},
+			"return":{"user":"object"},
+			"comment":"update some field of user"
+			},
+		"DELETE":{
+			"function":"Delete User",
+			"parameters":{},
+			"return":{},
+			"comment":"distory this account"
+			}
+
+		},
+
+	"Direction/:userid/:dirid":{
+		"GET":{
+			"function":"Get Node",
+			"parameters":{},
+			"return":{
+					"dirNode":{
+						"type":"object",
+						"comment":"the dir object,
+						 the subItem modify to an array,
+						  which has only one layout children"
+					}
+				},
+			"comment":"get info of this node, include children"
+		},
+		"POST":{
+			"function":"Add Item",
+			"parameters":{
+					"dirNode":{
+						"type":"object",
+						"comment":"it can be a new folder,
+						 or a node form other place either"
+					}
+				},
+			"return":{
+					"dirNode":{
+						"type":"object",
+						"comment":"the new object you have add"
+					}
+				},
+			"comment":"Append an item with this node, 
+			maybe new folder, maybe another node. care about child circle."
+			},
+		"PATCH":{
+			"function":"Update Node",
+			"parameters":{},
+			"return":{
+					"dirNode":{
+						"type":"object",
+						"comment":"the new object you have update"
+					}
+				},
+			"comment":"update some field of this node, like name,authority,you can also delete one of subitem"
+			},
+		"DELETE":{
+			"function":"Delete Node",
+			"parameters":{},
+			"return":{},
+			"comment":"distory this Node. remember refresh parent node"
+			}
+	},
+	"file/:userid/:fileid":{
+			"GET":{
+			"function":"Download File",
+			"parameters":{},
+			"return":{
+				"file":"stream",
+				"comment":"I don't know which stream should be,
+				 maybe base64 in json, maybe data with http content data"
+				},
+			"comment":"download this file"
+		},
+		"POST":{
+			"function":"Upload File",
+			"parameters":{
+					"file":{
+						"type":"stream",
+						"comment":"stream, and some infomation about this file addon,
+						 discuss later"
+					}
+				},
+			"return":{
+					"fileInfo":{
+						"type":"object"
+					}
+				},
+			"comment":"upload this file"
+			},
+		"PATCH":{
+			"function":"Update File",
+			"parameters":{
+				"field":"object"
+				},
+			"return":{"fileInfo":"object"},
+			"comment":"update infomation of the file, like file name,authority and so on"
+			},
+		"DELETE":{
+			"function":"Delete File",
+			"parameters":{},
+			"return":{},
+			"comment":"delete this file for this user"
+			}
+
+	}
+
+
+
+}
